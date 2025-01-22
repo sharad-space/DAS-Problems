@@ -57,8 +57,31 @@ public class DynamicExample {
 
         
     }
-    
 
+    public static int getMaxPathSum(int[][] matrix){
+        int n=matrix.length;
+        int m=matrix[0].length;
+        int maxi=Integer.MIN_VALUE;
+        for (int i = 0; i < m; i++) {
+            maxi=Math.max(maxi, solve(n-1,i,matrix));
+        }
+
+        return maxi;
+    }
+            
+        
+    private static int solve(int i, int j, int[][] matrix) {
+
+            if(j<0 || j>=matrix[0].length) return Integer.MIN_VALUE;
+            if(i==0) return matrix[0][j];
+            
+            int u=matrix[i][j]+solve(i-1, j, matrix);
+            int ld=matrix[i][j]+solve(i-1, j-1, matrix);
+            int rd=matrix[i][j]+solve(i-1, j+1, matrix);
+
+            return Math.max(u, Math.max(ld, rd));
+    }
+        
     public static void main(String[] args) {
         
         // int[] dp=new int[11];
